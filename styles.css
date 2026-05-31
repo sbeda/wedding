@@ -1,0 +1,1673 @@
+/* === CSS Переменные === */
+:root {
+    --color-deep-burgundy: #31010f;
+    --color-cream: #e7e0cb;
+    --color-pastel: #f5f0e8;
+    --color-white: #fffaf5;
+    --color-text: #4a3540;
+    --color-text-light: #6b5560;
+    --color-accent: #5c2a3a;
+    --color-border: #d4ccc0;
+    --color-overlay: rgba(49, 1, 15, 0.03);
+}
+
+/* === Сброс и базовые стили === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    background: var(--color-cream);
+    color: var(--color-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* === Общий контейнер === */
+.container {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--color-pastel);
+    box-shadow: 0 10px 40px rgba(49, 1, 15, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+/* === Блоки === */
+.block {
+    padding: 50px 30px;
+    text-align: center;
+    position: relative;
+    border-bottom: none;
+}
+
+.block::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-deep-burgundy), transparent);
+    opacity: 0.3;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.block:last-child::after {
+    display: none;
+}
+
+/* === 1. Конверт === */
+#envelope {
+    background: var(--color-cream);
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#envelope::after {
+    display: none;
+}
+
+.envelope-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Части конверта */
+.envelope-part {
+    position: absolute;
+    transition: all 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 2;
+}
+
+.envelope-part img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Группа: верхняя часть + штамп */
+.envelope-top-group {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    z-index: 4;
+    transition: all 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.envelope-top {
+    position: relative;
+    width: 100%;
+}
+
+.envelope-top img {
+    width: 100%;
+}
+
+/* Штамп внутри верхней группы — привязан к нижнему краю */
+.envelope-stamp-wrapper {
+    position: absolute;
+    bottom: -30px;
+    /* регулируй это значение: минус — ниже края, плюс — выше */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+}
+
+.envelope-stamp {
+    width: 120px;
+    height: auto;
+    display: block;
+    pointer-events: none;
+}
+
+/* .envelope-stamp-wrapper:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+} */
+
+.stamp-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--color-cream);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* Надпись ПРИГЛАШЕНИЕ НА СВАДЬБУ */
+.envelope-invitation-text {
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translateX(-47%);
+    text-align: center;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    color: black;
+    background: transparent;
+    white-space: nowrap;
+    z-index: 5;
+}
+
+/* Нижняя часть */
+.envelope-bottom {
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    z-index: 1;
+    position: absolute;
+}
+
+.envelope-bottom img {
+    width: 100%;
+}
+
+.envelope-bottom-text {
+    position: absolute;
+    top: 490px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    white-space: nowrap;
+    transition: all 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.envelope-bottom-text span {
+    font-family: 'Great Vibes', cursive;
+    font-size: 54px;
+    font-weight: 400;
+    color: black;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+    white-space: nowrap;
+}
+
+.envelope-bottom-text span::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 1px;
+    background: black;
+    opacity: 0.5;
+}
+
+/* Уезжает при открытии */
+#envelope.opened .envelope-bottom-text {
+    transform: translateX(-50%) translateY(120%);
+    opacity: 0;
+}
+
+/* Левая часть */
+.envelope-left {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 70%;
+    z-index: 3;
+}
+
+.envelope-left img {
+    height: 100%;
+    width: auto;
+}
+
+/* Правая часть */
+.envelope-right {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 70%;
+    z-index: 3;
+}
+
+.envelope-right img {
+    height: 100%;
+    width: auto;
+}
+
+/* Текст внутри */
+.envelope-text {
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.6s;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.envelope-photo-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.envelope-couple-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+    opacity: 0;
+    transition: opacity 1s ease 0.2s;
+}
+
+#envelope.opened .envelope-couple-photo {
+    opacity: 1;
+}
+
+/* Оверлей с текстом поверх фото */
+.envelope-photo-overlay {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-49%);
+    z-index: 2;
+    pointer-events: none;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+}
+
+.envelope-photo-bottom-all {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.envelope-photo-title {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 44px;
+    font-weight: 200;
+    color: var(--color-cream);
+    text-shadow: 0 2px 15px rgba(49, 1, 15, 0.5);
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+/* Дата с фоновой кнопкой */
+.envelope-photo-date-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.envelope-photo-date-bg {
+    width: 280px;
+    height: auto;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+}
+
+.envelope-photo-date {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 6px;
+    color: var(--color-deep-burgundy);
+    white-space: nowrap;
+}
+
+.envelope-photo-vignette {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 1s ease 0.2s;
+}
+
+#envelope.opened .envelope-photo-vignette {
+    opacity: 1;
+}
+
+.envelope-photo-subtitle {
+    font-family: 'Cormorant Garamond', 'Georgia';
+    font-size: 15px;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: var(--color-white);
+    line-height: 1.3;
+    margin-bottom: 30px;
+    padding: 14px 0px;
+    max-width: 500px;
+    font-weight: 200;
+    text-align: center;
+}
+
+.envelope-photo-top-bg {
+    background: rgba(231, 224, 203, 0.6);
+    backdrop-filter: blur(3px);
+    padding: 16px 28px;
+    display: inline-block;
+}
+
+/* Состояние открытого конверта */
+#envelope.opened .envelope-top-group {
+    transform: translateX(-50%) translateY(-120%);
+    opacity: 0;
+}
+
+#envelope.opened .envelope-stamp-wrapper {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#envelope.opened .envelope-bottom {
+    transform: translateX(-50%) translateY(120%);
+    opacity: 0;
+}
+
+#envelope.opened .envelope-left {
+    transform: translateY(-50%) translateX(-120%);
+    opacity: 0;
+}
+
+#envelope.opened .envelope-right {
+    transform: translateY(-50%) translateX(120%);
+    opacity: 0;
+}
+
+#envelope.opened .envelope-text {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* === Типографика === */
+h1 {
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--color-deep-burgundy);
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--color-deep-burgundy);
+    margin-bottom: 15px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--color-accent);
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+
+p {
+    font-size: 17px;
+    margin-bottom: 12px;
+    color: var(--color-text-light);
+    font-weight: 300;
+}
+
+strong {
+    font-weight: 500;
+    color: var(--color-deep-burgundy);
+}
+
+/* === 2. Совместное фото === */
+#photo-block {
+    background: var(--color-white);
+}
+
+#photo-block img {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 50%;
+    margin: 0 auto 30px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    box-shadow: 0 15px 35px rgba(49, 1, 15, 0.12);
+    background: var(--color-cream);
+    min-height: unset;
+}
+
+#photo-block h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+#photo-block p {
+    font-size: 18px;
+}
+
+/* === 3. Приглашение + Место проведения === */
+#invitation-location {
+    background: var(--color-cream);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#invitation-location::after {
+    display: none;
+}
+
+/* Верхняя секция с фоном */
+.invitation-top-section {
+    background: #eae7df;
+    position: relative;
+    overflow: hidden;
+}
+
+.invitation-top-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(180deg);
+    width: auto;
+    height: 100%;
+    min-width: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+    opacity: 0.4;
+}
+
+.invitation-top-content {
+    position: relative;
+    z-index: 2;
+    padding: 50px 25px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.invitation-location-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 58px;
+    font-weight: 500;
+    padding-top: 50px;
+    letter-spacing: 2px;
+    color: black;
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-transform: none;
+}
+
+/* Декор слева сверху */
+.decor-invitation-top-left {
+    position: absolute;
+    top: 90px;
+    left: -90px;
+    width: 200px;
+    height: 200px;
+    z-index: 1;
+    transform: rotate(-150deg);
+    opacity: 1;
+    pointer-events: none;
+}
+
+.decor-invitation-top-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.invitation-text-block p {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 22px;
+    color: black;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+
+/* Фото ресторана (без фона) */
+.invitation-location-photo {
+    width: 100%;
+    position: relative;
+    z-index: 5;
+}
+
+.location-photo-blur {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.location-photo-blur img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+
+/* Нижняя секция с фоном */
+.invitation-bottom-section {
+    background: #eae7df;
+    position: relative;
+    overflow: hidden;
+}
+
+.invitation-bottom-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    min-width: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+    opacity: 0.4;
+}
+
+.invitation-bottom-content {
+    position: relative;
+    z-index: 2;
+    padding: 35px 25px 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Инфо места */
+.invitation-location-info {
+    text-align: center;
+}
+
+.location-name-text {
+    font-family: 'Cormorant Garamond', 'Georgia';
+    font-size: 20px;
+    font-weight: 300;
+    color: black;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+.location-full-address {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+/* Декор справа снизу */
+.decor-invitation-bottom-right {
+    position: absolute;
+    bottom: 10px;
+    right: -80px;
+    width: 200px;
+    height: 200px;
+    z-index: 1;
+    transform: rotate(15deg);
+    opacity: 1;
+    pointer-events: none;
+}
+
+.decor-invitation-bottom-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Кнопка */
+.button-map-rounded {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--color-deep-burgundy);
+    color: var(--color-cream);
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.button-map-rounded:hover {
+    background: var(--color-accent);
+    transform: scale(1.05);
+}
+
+/* === 5. Тайминг дня === */
+#timeline {
+    background: var(--color-cream);
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#timeline::after {
+    display: none;
+}
+
+.timeline-full-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+}
+
+.timeline-inner {
+    position: relative;
+    z-index: 2;
+    padding: 50px 25px 60px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+}
+
+/* Заголовок с фоном */
+.timeline-header {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    margin-bottom: -160px;
+}
+
+.timeline-header-bg {
+    width: 340px;
+    height: auto;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+}
+
+.timeline-header-text {
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Great Vibes', cursive;
+    font-size: 38px;
+    font-weight: 400;
+    color: #5d3311;
+    white-space: nowrap;
+}
+
+/* Карточка */
+.timeline-card {
+    background: rgba(231, 224, 203, 0.7);
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    padding: 5px;
+    max-width: 380px;
+    width: 100%;
+}
+
+.timeline-content {
+    padding: 30px 25px;
+    text-align: center;
+}
+
+.timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+}
+
+.timeline-time {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: black;
+    letter-spacing: 2px;
+    min-width: 60px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.timeline-desc-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 140px;
+}
+
+.timeline-desc {
+    font-size: 18px;
+    color: black;
+    text-align: center;
+    line-height: 1.4;
+    letter-spacing: 2px;
+    padding: 10px 0;
+}
+
+/* Разделитель */
+.timeline-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 14px;
+    width: 100%;
+}
+
+.timeline-connector {
+    width: 1px;
+    height: 100%;
+    background: var(--color-deep-burgundy);
+    opacity: 0.2;
+}
+
+/* === 6. Дресс-код === */
+#dresscode {
+    background: #eae7df;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#dresscode::after {
+    display: none;
+}
+
+.dresscode-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('fon-dress.jpg') center/cover no-repeat;
+    filter: blur(2px);
+    z-index: 0;
+}
+
+.dresscode-inner {
+    padding: 50px 25px 60px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Декор */
+.decor-dress-left {
+    position: absolute;
+    top: 40px;
+    left: -30px;
+    width: 130px;
+    height: 130px;
+    z-index: 1;
+    transform: rotate(-10deg);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.decor-dress-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.decor-dress-right {
+    position: absolute;
+    top: -50px;
+    right: -80px;
+    width: 220px;
+    height: 220px;
+    z-index: 1;
+    transform: rotate(10deg);
+    opacity: 1;
+    pointer-events: none;
+}
+
+.decor-dress-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Заголовок с фоном */
+.dresscode-header {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 55px;
+    margin-top: 50px;
+}
+
+.dresscode-header-bg {
+    width: 240px;
+    height: auto;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+}
+
+.dresscode-header-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Great Vibes', cursive;
+    font-size: 58px;
+    font-weight: 600;
+    color: #5d3311;
+    white-space: nowrap;
+}
+
+/* Текст */
+.dresscode-text {
+    margin-bottom: 20px;
+}
+
+.dresscode-text-first {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 20px;
+    color: black;
+    line-height: 1.1;
+    padding: 2px;
+    font-weight: 500;
+}
+
+.dresscode-text-second {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 20px;
+    color: black;
+    line-height: 1.1;
+    margin: 18px auto 0;
+    font-weight: 500;
+}
+
+/* Палитра */
+.dresscode-palette {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 0 25px;
+    flex-wrap: wrap;
+}
+
+.palette-color {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(49, 1, 15, 0.1);
+    border: 2px solid var(--color-cream);
+}
+
+/* Метки Для женщин / Для мужчин */
+.dresscode-labels {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    /* margin-bottom: 15px; */
+}
+
+.dresscode-label {
+    font-family: 'Great Vibes', cursive;
+    font-weight: 400;
+    font-size: 30px;
+    color: black;
+    letter-spacing: 1px;
+}
+
+/* Фото на всю ширину */
+.dresscode-photo-full {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-bottom: 25px;
+}
+
+.dresscode-photo-full img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+}
+
+/* Текст снизу */
+.dresscode-note {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-weight: 500;
+    font-size: 20px;
+    font-style: italic;
+    color: black;
+    line-height: 1.1;
+    opacity: 0.8;
+    margin-bottom: 60px;
+}
+
+/* === 7. Анкета === */
+#survey {
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#survey::after {
+    display: none;
+}
+
+.survey-bg-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+}
+
+.survey-overlay {
+    position: relative;
+    z-index: 2;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.survey-inner {
+    background: rgba(231, 224, 203, 0.75);
+    /* backdrop-filter: blur(4px); */
+    padding: 40px 25px;
+    border-radius: 4px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Заголовок */
+.survey-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 44px;
+    font-weight: 400;
+    color: var(--color-deep-burgundy);
+    margin-bottom: 15px;
+    line-height: 1;
+}
+
+/* Подзаголовок */
+.survey-subtitle {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 15px;
+    color: black;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+/* Дата */
+.survey-date {
+    font-family: 'Great Vibes', cursive;
+    font-size: 30px;
+    color: black;
+    display: inline-block;
+    padding-bottom: 6px;
+    border-bottom: 1px solid black;
+    margin-bottom: 30px;
+    line-height: 1;
+}
+
+/* Форма */
+#surveyForm {
+    text-align: left;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    display: block;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: black;
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+    width: 100%;
+    padding: 12px 36px 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 15px;
+    color: black;
+    background: rgba(255, 250, 245, 0.8);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-wrapper input:focus,
+.input-wrapper textarea:focus {
+    outline: none;
+    border-color: var(--color-deep-burgundy);
+    background: var(--color-white);
+}
+
+.input-wrapper textarea {
+    resize: vertical;
+    min-height: 50px;
+}
+
+.input-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: var(--color-deep-burgundy);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Радио */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 14px;
+    background: rgba(255, 250, 245, 0.6);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.radio-option:hover {
+    background: rgba(255, 250, 245, 0.9);
+    border-color: var(--color-border);
+}
+
+.radio-option input {
+    accent-color: black;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.radio-text {
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+/* Чекбоксы */
+.checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 12px;
+    background: rgba(255, 250, 245, 0.6);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.checkbox-option:hover {
+    background: rgba(255, 250, 245, 0.9);
+    border-color: var(--color-border);
+}
+
+.checkbox-option input {
+    accent-color: black;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.checkbox-text {
+    font-size: 13px;
+    color: black;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Кнопка */
+.survey-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: var(--color-deep-burgundy);
+    color: var(--color-cream);
+    border: none;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 15px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.survey-submit:hover {
+    background: var(--color-accent);
+}
+
+.submit-icon {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.survey-submit:hover .submit-icon {
+    transform: scale(1.2);
+}
+
+/* === 7. Детали === */
+#details {
+    background: var(--color-cream);
+    padding: 50px 25px 60px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+#details::after {
+    display: none;
+}
+
+.details-flower-left {
+    position: absolute;
+    top: 0;
+    left: -50px;
+    width: 180px;
+    height: 180px;
+    z-index: 1;
+    transform: rotate(10deg);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.details-flower-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.details-flower-right {
+    position: absolute;
+    bottom: 110px;
+    right: -30px;
+    width: 140px;
+    height: 140px;
+    z-index: 1;
+    transform: rotate(-10deg);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.details-flower-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.details-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Заголовок */
+.details-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 44px;
+    font-weight: 400;
+    color: var(--color-deep-burgundy);
+    line-height: 1;
+}
+
+/* Основной текст */
+.details-main {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 18px;
+    color: var(--color-text);
+    letter-spacing: 2px;
+    line-height: 1.2;
+    max-width: 350px;
+}
+
+.details-heart {
+    color: var(--color-deep-burgundy);
+    font-size: 20px;
+    animation: heartBeat 1.5s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes heartBeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.2);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    75% {
+        transform: scale(1.15);
+    }
+}
+
+/* Текст с подчёркиванием */
+.details-gift-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.details-line {
+    width: 80px;
+    height: 1px;
+    background: var(--color-deep-burgundy);
+    opacity: 0.4;
+}
+
+.details-gift {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--color-text-light);
+    letter-spacing: 2px;
+    line-height: 1.2;
+    max-width: 350px;
+    margin: 0;
+}
+
+/* Вопрос */
+.details-question {
+    font-family: 'Great Vibes', cursive;
+    font-size: 30px;
+    color: var(--color-deep-burgundy);
+    line-height: 1;
+}
+
+/* Карточка контакта */
+.contact-card {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-card-bg {
+    width: 440px;
+    height: auto;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+}
+
+.contact-card-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.contact-name {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-deep-burgundy);
+    margin-bottom: 0px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.contact-phone {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 14px;
+    color: var(--color-deep-burgundy);
+    text-decoration: none;
+    letter-spacing: 3px;
+    white-space: nowrap;
+}
+
+/* === 8. Таймер и фотография === */
+#timer-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0;
+}
+
+#timer-section::after {
+    display: none;
+}
+
+.timer-full-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    min-height: unset;
+    background: none;
+}
+
+.timer-vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.timer-overlay {
+    position: absolute;
+    bottom: 160px;
+    left: 0;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.timer-meet-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 48px;
+    color: var(--color-cream);
+    margin-bottom: 30px;
+    text-shadow: 0 2px 15px rgba(49, 1, 15, 0.5);
+    line-height: 1.2;
+}
+
+/* Таймер */
+.timer-countdown {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.timer-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 55px;
+}
+
+.timer-digit {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 44px;
+    font-weight: 300;
+    color: var(--color-cream);
+    letter-spacing: 3px;
+    line-height: 1;
+    text-shadow: 0 2px 15px rgba(49, 1, 15, 0.5);
+}
+
+.timer-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-cream);
+    margin-top: 5px;
+    opacity: 0.85;
+    text-shadow: 0 1px 8px rgba(49, 1, 15, 0.3);
+}
+
+.timer-love {
+    font-family: 'Great Vibes', cursive;
+    font-size: 40px;
+    color: var(--color-cream);
+    line-height: 1.3;
+    text-shadow: 0 2px 15px rgba(49, 1, 15, 0.5);
+}
+
+/* === Адаптивность === */
+@media (max-width: 500px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .block {
+        padding: 40px 20px;
+    }
+
+    #envelope {
+        padding: 0;
+    }
+
+    .envelope-text h1 {
+        font-size: 34px;
+    }
+
+    .envelope-button {
+        padding: 14px 35px;
+        font-size: 16px;
+        letter-spacing: 6px;
+    }
+
+    #photo-block img {
+        max-width: 260px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+}
+
+/* === Прелоадер === */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.preloader-content {
+    text-align: center;
+}
+
+/* Кольца */
+.preloader-rings {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 30px;
+}
+
+.ring {
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--color-deep-burgundy);
+    animation: ringPulse 1.6s ease-in-out infinite;
+}
+
+.ring-left {
+    left: 0;
+    transform: translateY(-50%) rotate(-15deg);
+    animation-delay: 0s;
+}
+
+.ring-right {
+    right: 0;
+    transform: translateY(-50%) rotate(15deg);
+    animation-delay: 0.3s;
+}
+
+@keyframes ringPulse {
+
+    0%,
+    100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateY(-50%) scale(1.3);
+        opacity: 1;
+    }
+}
+
+/* Текст прелоадера */
+.preloader-text {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 16px;
+    letter-spacing: 6px;
+    color: var(--color-deep-burgundy);
+    animation: fadeText 1.6s ease-in-out infinite;
+}
+
+@keyframes fadeText {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
