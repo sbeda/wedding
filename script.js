@@ -70,6 +70,9 @@ if (surveyForm) {
 
         console.log('Данные анкеты:', data);
 
+        // ✅ ДОБАВЬ ЭТУ СТРОКУ:
+        sendToTelegram(data);
+
         // Анимация отправки
         const submitBtn = surveyForm.querySelector('.survey-submit');
         const originalHTML = submitBtn.innerHTML;
@@ -78,7 +81,6 @@ if (surveyForm) {
 
         showNotification('Спасибо! Ваша анкета получена. Ждём вас на празднике!');
 
-        // Возвращаем кнопку через 2 секунды
         setTimeout(() => {
             submitBtn.innerHTML = originalHTML;
             surveyForm.classList.remove('submitted');
@@ -291,3 +293,42 @@ dresscodeScrolls.forEach(scroll => {
         lastScrollY = window.scrollY;
     });
 });
+
+// === Отправка формы в Telegram ===
+async function sendToTelegram(data) {
+    const BOT_TOKEN = '8645061112:AAHDOsbRa-pllcY6CKI7U-M1JnZ6l1Hqwt0';
+    const CHAT_ID = '-5190035991'; // группа "Приглашения"
+
+    const drinksLabels = {
+        'sparkling': 'Игристое',
+        'white-wine': 'Вино белое',
+        'red-wine': 'Вино красное',
+        'whiskey': 'Виски',
+        'cognac': 'Коньяк',
+        'vodka': 'Водка',
+        'non-alcoholic': 'Безалкогольные'
+    };
+
+    const drinksList = data.drinks
+        ? data.drinks.map(d => drinksLabels[d] || d).join('\n')
+        : 'Не выбрано';
+
+    const message = `🕊 <b>Новая анкета гостя</b>\n\n<b>Имя:</b> ${data.name}\n<b>Присутствие:</b> ${data.attendance === 'yes' ? 'Да, с радостью' : 'К сожалению, не смогу'}\n<b>Аллергии/Ограничения:</b> ${data.allergies || 'Не указано'}\n\n<b>Предпочитаемые напитки:</b>\n${drinksList}`;
+
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: message,
+                parse_mode: 'HTML'
+            })
+        });
+
+        if (!response.ok) throw new Error('Ошибка отправки');
+        console.log('Анкета отправлена в Telegram');
+    } catch (error) {
+        console.error('Ошибка отправки:', error);
+    }
+}

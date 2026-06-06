@@ -140,16 +140,13 @@ body {
     pointer-events: none;
 }
 
-/* .envelope-stamp-wrapper:hover {
-    transform: translate(-50%, -50%) scale(1.08);
-} */
-
 .stamp-text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-style: italic;
     font-size: 12px;
     letter-spacing: 3px;
@@ -165,7 +162,8 @@ body {
     left: 50%;
     transform: translateX(-47%);
     text-align: center;
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 30px;
     letter-spacing: 2px;
     line-height: 1.4;
@@ -320,9 +318,9 @@ body {
 }
 
 .envelope-photo-title {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 44px;
-    font-weight: 200;
     color: var(--color-cream);
     text-shadow: 0 2px 15px rgba(49, 1, 15, 0.5);
     margin-bottom: 0;
@@ -351,9 +349,9 @@ body {
     top: 47%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
-    font-size: 22px;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
+    font-size: 22px;
     letter-spacing: 6px;
     color: var(--color-deep-burgundy);
     white-space: nowrap;
@@ -493,6 +491,322 @@ strong {
     font-size: 18px;
 }
 
+/* АДАПТАЦИЯ ПЕРВОЙ ЧАСТИ ПОД ВСЕ ЭКРАНЫ */
+/* ==========================================
+   АДАПТАЦИЯ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА
+   Часть 1: CSS Переменные, Сброс, Базовые стили, Конверт, Типографика
+   ========================================== */
+
+/* === Базовые адаптивные настройки (добавить в конец файла) === */
+
+/* 
+  Основные контрольные точки:
+  - 380px и меньше: маленькие телефоны (iPhone SE, Galaxy S8 и меньше)
+  - 381px - 480px: стандартные телефоны
+  - Важно: все размеры в em/rem/procent для лучшего масштабирования
+*/
+
+/* ========== ОБЩИЕ АДАПТАЦИИ ========== */
+
+/* На маленьких экранах уменьшаем базовый шрифт */
+@media screen and (max-width: 380px) {
+    body {
+        font-size: 15px;
+        /* было 17px */
+        line-height: 1.5;
+    }
+}
+
+@media screen and (max-width: 480px) and (min-width: 381px) {
+    h1 {
+        font-size: 38px;
+        letter-spacing: 3px;
+    }
+
+    h2 {
+        font-size: 26px;
+        letter-spacing: 4px;
+    }
+
+    h3 {
+        font-size: 20px;
+        letter-spacing: 2.5px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+/* ========== КОНТЕЙНЕР ========== */
+@media screen and (max-width: 480px) {
+    .container {
+        max-width: 100%;
+        margin: 0;
+        box-shadow: none;
+    }
+
+    .block {
+        padding: 40px 20px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .block {
+        padding: 30px 15px;
+    }
+
+    .block::after {
+        width: 40px;
+    }
+}
+
+/* ========== СЕКЦИЯ КОНВЕРТА ========== */
+
+/* Базовые адаптации для всех мобильных */
+@media screen and (max-width: 480px) {
+    #envelope {
+        min-height: 100vh;
+        min-height: 100dvh;
+        /* для современных браузеров с динамическим viewport */
+        padding: 0;
+    }
+
+    .envelope-wrapper {
+        height: 100vh;
+        height: 100dvh;
+    }
+
+    /* Конверт занимает всю ширину */
+    .envelope-top-group {
+        max-width: 100%;
+    }
+
+    .envelope-bottom {
+        max-width: 100%;
+        bottom: 40px;
+    }
+
+    /* Уменьшаем размер штампа */
+    .envelope-stamp {
+        width: 100px;
+    }
+
+    .stamp-text {
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+
+    /* Адаптация надписи "ПРИГЛАШЕНИЕ НА СВАДЬБУ" */
+    .envelope-invitation-text {
+        top: 60%;
+        /* было 250px, делаем относительным */
+        font-size: 34px;
+        letter-spacing: 1.5px;
+        white-space: normal;
+        /* разрешаем перенос */
+        width: 100%;
+        line-height: 1.3;
+    }
+
+    /* Надпись "Дмитрия и Анны" */
+    .envelope-bottom-text {
+        top: auto;
+        bottom: 35%;
+        width: 100%;
+        /* позиционируем относительно */
+    }
+
+    .envelope-bottom-text span {
+        font-size: 54px;
+    }
+}
+
+/* Маленькие экраны */
+@media screen and (max-width: 380px) {
+    .envelope-stamp {
+        width: 80px;
+    }
+
+    .stamp-text {
+        font-size: 9px;
+        letter-spacing: 1.5px;
+    }
+
+    .envelope-invitation-text {
+        top: 35%;
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+
+    .envelope-stamp-wrapper {
+        bottom: -20px;
+    }
+
+    .envelope-bottom-text span {
+        font-size: 32px;
+    }
+
+    .envelope-bottom-text span::after {
+        width: 80%;
+    }
+}
+
+/* Очень маленькие экраны (iPhone SE 1st gen) */
+@media screen and (max-width: 320px) {
+    .envelope-invitation-text {
+        font-size: 18px;
+        top: 30%;
+    }
+
+    .envelope-bottom-text span {
+        font-size: 28px;
+    }
+
+    .envelope-stamp {
+        width: 70px;
+    }
+}
+
+/* ========== КОНВЕРТ: ФОТО И ОВЕРЛЕЙ ========== */
+
+@media screen and (max-width: 480px) {
+    .envelope-photo-overlay {
+        bottom: 60px;
+        width: 95%;
+        max-width: 350px;
+        transform: translateX(-50%);
+    }
+
+    .envelope-photo-title {
+        font-size: 46px;
+        letter-spacing: 2px;
+    }
+
+    .envelope-photo-date-bg {
+        width: 220px;
+    }
+
+    .envelope-photo-date {
+        font-size: 24px;
+        letter-spacing: 4px;
+    }
+
+    .envelope-photo-subtitle {
+        font-size: 18px;
+        padding: 10px 0;
+        margin-bottom: 20px;
+    }
+
+    /* Уменьшаем виньетку */
+    .envelope-photo-vignette {
+        height: 40%;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .envelope-photo-overlay {
+        bottom: 40px;
+        width: 92%;
+        max-width: 300px;
+    }
+
+    .envelope-photo-title {
+        font-size: 40px;
+        letter-spacing: 1.5px;
+    }
+
+    .envelope-photo-date-bg {
+        width: 180px;
+    }
+
+    .envelope-photo-date {
+        font-size: 16px;
+        letter-spacing: 3px;
+    }
+
+    .envelope-photo-subtitle {
+        font-size: 15px;
+    }
+
+    .envelope-photo-top-bg {
+        padding: 12px 20px;
+    }
+
+    .envelope-couple-photo {
+        object-position: center 35%;
+    }
+}
+
+/* ========== ФОТО-БЛОК (#photo-block) ========== */
+
+@media screen and (max-width: 480px) {
+    #photo-block img {
+        max-width: 260px;
+        margin-bottom: 25px;
+    }
+
+    #photo-block h2 {
+        font-size: 30px;
+        margin-bottom: 8px;
+    }
+
+    #photo-block p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    #photo-block img {
+        max-width: 220px;
+        margin-bottom: 20px;
+    }
+
+    #photo-block h2 {
+        font-size: 26px;
+    }
+
+    #photo-block p {
+        font-size: 15px;
+    }
+}
+
+/* ========== ДОПОЛНИТЕЛЬНЫЕ ИСПРАВЛЕНИЯ ========== */
+
+/* Предотвращаем горизонтальный скролл */
+@media screen and (max-width: 480px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    /* Все изображения не должны выходить за пределы */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Исправляем возможные проблемы с white-space */
+    .envelope-invitation-text,
+    .envelope-bottom-text span,
+    .envelope-photo-title,
+    .envelope-photo-date {
+        white-space: normal;
+    }
+}
+
+/* Для устройств с "челкой" (notch) */
+@supports (padding-top: env(safe-area-inset-top)) {
+    #envelope {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    }
+}
+
 /* === 3. Приглашение + Место проведения === */
 #invitation-location {
     background: var(--color-cream);
@@ -544,7 +858,7 @@ strong {
     font-weight: 500;
     padding-top: 50px;
     letter-spacing: 2px;
-    color: black;
+    color: var(--color-accent);
     margin-bottom: 0;
     white-space: nowrap;
     text-transform: none;
@@ -570,10 +884,10 @@ strong {
 }
 
 .invitation-text-block p {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 22px;
     color: black;
-    font-weight: 400;
     line-height: 1.1;
     margin-bottom: 0;
 }
@@ -642,9 +956,9 @@ strong {
 }
 
 .location-name-text {
-    font-family: 'Cormorant Garamond', 'Georgia';
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 20px;
-    font-weight: 300;
     color: black;
     margin: 0px;
     margin-top: 10px;
@@ -654,7 +968,8 @@ strong {
     font-size: 18px;
     color: black;
     margin-bottom: 30px;
-    font-weight: 300;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
 }
 
 /* Декор справа снизу */
@@ -682,7 +997,8 @@ strong {
     padding: 16px 40px;
     background: var(--color-deep-burgundy);
     color: var(--color-cream);
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 14px;
     letter-spacing: 6px;
     text-transform: uppercase;
@@ -695,6 +1011,209 @@ strong {
 .button-map-rounded:hover {
     background: var(--color-accent);
     transform: scale(1.05);
+}
+
+/* АДАПТАЦИЯ ВТОРОЙ ЧАСТИ ПОД ВСЕ ЭКРАНЫ */
+/* ==========================================
+   АДАПТАЦИЯ: Приглашение + Место проведения
+   ========================================== */
+
+/* Стандартные мобильные (до 480px) */
+@media screen and (max-width: 480px) {
+
+    /* Верхняя секция */
+    .invitation-top-content {
+        padding: 40px 20px 30px;
+    }
+
+    .invitation-location-title {
+        font-size: 44px;
+        padding-top: 30px;
+        letter-spacing: 1.5px;
+        white-space: normal;
+        /* разрешаем перенос */
+        line-height: 1.1;
+    }
+
+    /* Декор слева сверху */
+    .decor-invitation-top-left {
+        top: 40px;
+        left: -100px;
+        width: 150px;
+        height: 150px;
+        transform: rotate(-150deg);
+    }
+
+    .invitation-text-block p {
+        font-size: 18px;
+        line-height: 1.2;
+        padding: 0 10px;
+    }
+
+    /* Фото ресторана */
+    .location-photo-blur img {
+        height: 220px;
+        /* уменьшаем высоту */
+        mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+
+    /* Нижняя секция */
+    .invitation-bottom-content {
+        padding: 25px 20px 40px;
+    }
+
+    .location-name-text {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+
+    .location-full-address {
+        font-size: 16px;
+        margin-bottom: 25px;
+        line-height: 1.3;
+        padding: 0 15px;
+    }
+
+    /* Декор справа снизу */
+    .decor-invitation-bottom-right {
+        bottom: 5px;
+        right: -90px;
+        width: 150px;
+        height: 150px;
+    }
+
+    /* Кнопка */
+    .button-map-rounded {
+        padding: 14px 32px;
+        font-size: 12px;
+        letter-spacing: 4px;
+        border-radius: 25px;
+    }
+}
+
+/* Маленькие экраны (до 380px) */
+@media screen and (max-width: 380px) {
+
+    .invitation-top-content {
+        padding: 30px 15px 25px;
+    }
+
+    .invitation-location-title {
+        font-size: 36px;
+        padding-top: 20px;
+        letter-spacing: 1px;
+    }
+
+    /* Декор ещё меньше */
+    .decor-invitation-top-left {
+        top: 20px;
+        left: -80px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .invitation-text-block p {
+        font-size: 16px;
+        line-height: 1.2;
+        padding: 0 5px;
+    }
+
+    /* Фото */
+    .location-photo-blur img {
+        height: 180px;
+    }
+
+    /* Нижняя секция */
+    .invitation-bottom-content {
+        padding: 20px 15px 30px;
+    }
+
+    .location-name-text {
+        font-size: 16px;
+    }
+
+    .location-full-address {
+        font-size: 14px;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+
+    /* Декор справа */
+    .decor-invitation-bottom-right {
+        bottom: 0;
+        right: -70px;
+        width: 120px;
+        height: 120px;
+    }
+
+    /* Кнопка */
+    .button-map-rounded {
+        padding: 12px 28px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        border-radius: 22px;
+    }
+}
+
+/* Очень маленькие экраны (до 320px) */
+@media screen and (max-width: 320px) {
+
+    .invitation-location-title {
+        font-size: 30px;
+        padding-top: 15px;
+    }
+
+    .invitation-text-block p {
+        font-size: 14px;
+    }
+
+    .location-photo-blur img {
+        height: 150px;
+    }
+
+    .location-name-text {
+        font-size: 14px;
+    }
+
+    .location-full-address {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+
+    .button-map-rounded {
+        padding: 10px 22px;
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+
+    /* Прячем декоративные элементы на очень маленьких экранах */
+    .decor-invitation-top-left,
+    .decor-invitation-bottom-right {
+        opacity: 0.5;
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Альбомная ориентация (для полноты картины) */
+@media screen and (max-width: 480px) and (orientation: landscape) {
+    .location-photo-blur img {
+        height: 300px;
+    }
+
+    .invitation-location-title {
+        font-size: 40px;
+        padding-top: 15px;
+    }
+
+    .invitation-top-content {
+        padding: 20px 20px 20px;
+    }
+
+    .invitation-bottom-content {
+        padding: 20px 20px 30px;
+    }
 }
 
 /* === 5. Тайминг дня === */
@@ -799,9 +1318,9 @@ strong {
 }
 
 .timeline-time {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 26px;
-    font-weight: 400;
     color: black;
     letter-spacing: 2px;
     min-width: 60px;
@@ -823,6 +1342,8 @@ strong {
     line-height: 1.4;
     letter-spacing: 2px;
     padding: 10px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
 }
 
 /* Разделитель */
@@ -839,6 +1360,217 @@ strong {
     height: 100%;
     background: var(--color-deep-burgundy);
     opacity: 0.2;
+}
+
+/* АДАПТАЦИЯ ТРЕТЕЙ ЧАСТИ ПОД ВСЕ ЭКРАНЫ */
+/* ==========================================
+   АДАПТАЦИЯ: Тайминг дня
+   ========================================== */
+
+/* Стандартные мобильные (до 480px) */
+@media screen and (max-width: 480px) {
+
+    #timeline {
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: 0;
+    }
+
+    .timeline-inner {
+        padding: 40px 20px 50px;
+        gap: 0;
+    }
+
+    /* Заголовок */
+    .timeline-header {
+        margin-bottom: -120px;
+        /* уменьшаем нахлёст */
+    }
+
+    .timeline-header-bg {
+        width: 260px;
+        /* уменьшаем фон */
+    }
+
+    .timeline-header-text {
+        font-size: 30px;
+        top: 54%;
+        white-space: normal;
+        /* разрешаем перенос */
+        text-align: center;
+        width: 90%;
+        line-height: 1.1;
+    }
+
+    /* Карточка */
+    .timeline-card {
+        max-width: 340px;
+        border-radius: 16px;
+        backdrop-filter: blur(3px);
+    }
+
+    .timeline-content {
+        padding: 25px 20px;
+    }
+
+    /* Элементы таймлайна */
+    .timeline-item {
+        gap: 15px;
+    }
+
+    .timeline-time {
+        font-size: 22px;
+        min-width: 50px;
+        letter-spacing: 1.5px;
+        padding-top: 8px;
+    }
+
+    .timeline-desc-col {
+        min-width: 120px;
+    }
+
+    .timeline-desc {
+        font-size: 16px;
+        letter-spacing: 1.5px;
+        padding: 8px 0;
+        line-height: 1.3;
+    }
+
+    /* Разделитель */
+    .timeline-divider {
+        height: 12px;
+    }
+}
+
+/* Маленькие экраны (до 380px) */
+@media screen and (max-width: 380px) {
+
+    .timeline-inner {
+        padding: 30px 15px 40px;
+    }
+
+    /* Заголовок */
+    .timeline-header {
+        margin-bottom: -100px;
+    }
+
+    .timeline-header-bg {
+        width: 220px;
+    }
+
+    .timeline-header-text {
+        font-size: 26px;
+    }
+
+    /* Карточка */
+    .timeline-card {
+        max-width: 300px;
+        border-radius: 14px;
+    }
+
+    .timeline-content {
+        padding: 20px 15px;
+    }
+
+    .timeline-item {
+        gap: 12px;
+    }
+
+    .timeline-time {
+        font-size: 20px;
+        min-width: 45px;
+        letter-spacing: 1px;
+        padding-top: 6px;
+    }
+
+    .timeline-desc-col {
+        min-width: 100px;
+    }
+
+    .timeline-desc {
+        font-size: 14px;
+        letter-spacing: 1px;
+        padding: 6px 0;
+    }
+
+    .timeline-divider {
+        height: 10px;
+    }
+}
+
+/* Очень маленькие экраны (до 320px) */
+@media screen and (max-width: 320px) {
+
+    .timeline-inner {
+        padding: 25px 12px 30px;
+    }
+
+    /* Заголовок */
+    .timeline-header {
+        margin-bottom: -80px;
+    }
+
+    .timeline-header-bg {
+        width: 190px;
+    }
+
+    .timeline-header-text {
+        font-size: 22px;
+    }
+
+    /* Карточка */
+    .timeline-card {
+        max-width: 270px;
+        border-radius: 12px;
+    }
+
+    .timeline-content {
+        padding: 18px 12px;
+    }
+
+    .timeline-item {
+        gap: 10px;
+    }
+
+    .timeline-time {
+        font-size: 18px;
+        min-width: 40px;
+        letter-spacing: 0.5px;
+    }
+
+    .timeline-desc-col {
+        min-width: 90px;
+    }
+
+    .timeline-desc {
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        padding: 5px 0;
+    }
+
+    .timeline-divider {
+        height: 8px;
+    }
+}
+
+/* Альбомная ориентация */
+@media screen and (max-width: 480px) and (orientation: landscape) {
+    #timeline {
+        min-height: auto;
+        padding: 20px 0;
+    }
+
+    .timeline-inner {
+        padding: 30px 20px 30px;
+    }
+
+    .timeline-header {
+        margin-bottom: -140px;
+    }
+
+    .timeline-card {
+        max-width: 400px;
+    }
 }
 
 /* === 6. Дресс-код === */
@@ -875,7 +1607,7 @@ strong {
 .decor-dress-left {
     position: absolute;
     top: 40px;
-    left: -30px;
+    left: -80px;
     width: 130px;
     height: 130px;
     z-index: 1;
@@ -893,11 +1625,11 @@ strong {
 .decor-dress-right {
     position: absolute;
     top: -50px;
-    right: -80px;
+    left: -70px;
     width: 220px;
     height: 220px;
     z-index: 1;
-    transform: rotate(10deg);
+    transform: rotate(-10deg);
     opacity: 1;
     pointer-events: none;
 }
@@ -906,6 +1638,7 @@ strong {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    /* filter: drop-shadow(4px 6px 8px rgba(0, 0, 0, 0.3)); */
 }
 
 /* Заголовок с фоном */
@@ -934,7 +1667,7 @@ strong {
     transform: translate(-50%, -50%);
     font-family: 'Great Vibes', cursive;
     font-size: 58px;
-    font-weight: 600;
+    font-weight: 400;
     color: #5d3311;
     white-space: nowrap;
 }
@@ -945,21 +1678,21 @@ strong {
 }
 
 .dresscode-text-first {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 20px;
     color: black;
     line-height: 1.1;
     padding: 2px;
-    font-weight: 500;
 }
 
 .dresscode-text-second {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 20px;
     color: black;
     line-height: 1.1;
     margin: 18px auto 0;
-    font-weight: 500;
 }
 
 /* Палитра */
@@ -1024,6 +1757,274 @@ strong {
     margin-bottom: 60px;
 }
 
+/* АДАПТАЦИЯ ЧЕТВЕРТОЙ ЧАСТИ ПОД ВСЕ ЭКРАНЫ */
+
+/* ==========================================
+   АДАПТАЦИЯ: Дресс-код
+   ========================================== */
+
+/* Стандартные мобильные (до 480px) */
+@media screen and (max-width: 480px) {
+
+    .dresscode-inner {
+        padding: 40px 20px 50px;
+    }
+
+    /* Декор справа */
+    .decor-dress-right {
+        top: -30px;
+        left: -5px;
+        width: 160px;
+        height: 160px;
+        opacity: 0.7;
+        /* слегка приглушаем, чтобы не мешал */
+    }
+
+    /* Заголовок */
+    .dresscode-header {
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
+
+    .dresscode-header-text {
+        font-size: 44px;
+    }
+
+    /* Текстовые блоки */
+    .dresscode-text-first {
+        font-size: 17px;
+        line-height: 1.2;
+        padding: 0 5px;
+    }
+
+    .dresscode-text-second {
+        font-size: 17px;
+        line-height: 1.2;
+        margin: 14px auto 0;
+        padding: 0 5px;
+    }
+
+    /* Палитра */
+    .dresscode-palette {
+        gap: 6px;
+        padding: 8px 0 20px;
+    }
+
+    .palette-color {
+        width: 34px;
+        height: 34px;
+        border-width: 1.5px;
+    }
+
+    /* Метки */
+    .dresscode-labels {
+        gap: 40px;
+    }
+
+    .dresscode-label {
+        font-size: 26px;
+    }
+
+    /* Фото */
+    /* .dresscode-photo-full img {
+        height: 220px;
+    } */
+
+    /* Текст снизу */
+    .dresscode-note {
+        font-size: 17px;
+        line-height: 1.2;
+        margin-bottom: 40px;
+        padding: 0 5px;
+    }
+}
+
+/* Маленькие экраны (до 380px) */
+@media screen and (max-width: 380px) {
+
+    .dresscode-inner {
+        padding: 30px 15px 40px;
+    }
+
+    /* Декор ещё меньше */
+    .decor-dress-right {
+        top: -20px;
+        left: -5px;
+        width: 120px;
+        height: 120px;
+        opacity: 0.5;
+    }
+
+    /* Заголовок */
+    .dresscode-header {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .dresscode-header-text {
+        font-size: 36px;
+    }
+
+    /* Тексты */
+    .dresscode-text-first {
+        font-size: 15px;
+        line-height: 1.2;
+    }
+
+    .dresscode-text-second {
+        font-size: 15px;
+        line-height: 1.2;
+        margin: 12px auto 0;
+    }
+
+    /* Палитра */
+    .dresscode-palette {
+        gap: 5px;
+        padding: 6px 0 15px;
+    }
+
+    .palette-color {
+        width: 30px;
+        height: 30px;
+        border-width: 1.5px;
+    }
+
+    /* Метки */
+    .dresscode-labels {
+        gap: 30px;
+    }
+
+    .dresscode-label {
+        font-size: 22px;
+    }
+
+    /* Фото */
+    /* .dresscode-photo-full img {
+        height: 180px;
+    } */
+
+    /* Текст снизу */
+    .dresscode-note {
+        font-size: 15px;
+        line-height: 1.2;
+        margin-bottom: 30px;
+    }
+}
+
+/* Очень маленькие экраны (до 320px) */
+@media screen and (max-width: 320px) {
+
+    .dresscode-inner {
+        padding: 25px 12px 30px;
+    }
+
+    /* Декор почти скрываем */
+    .decor-dress-right {
+        top: -15px;
+        left: -10px;
+        width: 90px;
+        height: 90px;
+        opacity: 0.3;
+    }
+
+    /* Заголовок */
+    .dresscode-header {
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+
+    .dresscode-header-text {
+        font-size: 30px;
+    }
+
+    /* Тексты */
+    .dresscode-text-first {
+        font-size: 14px;
+    }
+
+    .dresscode-text-second {
+        font-size: 14px;
+        margin: 10px auto 0;
+    }
+
+    /* Палитра */
+    .dresscode-palette {
+        gap: 4px;
+        padding: 5px 0 12px;
+    }
+
+    .palette-color {
+        width: 26px;
+        height: 26px;
+        border-width: 1px;
+    }
+
+    /* Метки */
+    .dresscode-labels {
+        gap: 20px;
+    }
+
+    .dresscode-label {
+        font-size: 20px;
+        letter-spacing: 0.5px;
+    }
+
+    /* Фото */
+    /* .dresscode-photo-full img {
+        height: 150px;
+    } */
+
+    /* Текст снизу */
+    .dresscode-note {
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+}
+
+/* Альбомная ориентация */
+@media screen and (max-width: 480px) and (orientation: landscape) {
+
+    .dresscode-inner {
+        padding: 25px 20px 30px;
+    }
+
+    /* .dresscode-photo-full img {
+        height: 300px;
+    } */
+
+    .dresscode-header-text {
+        font-size: 40px;
+    }
+
+    .dresscode-note {
+        margin-bottom: 25px;
+    }
+}
+
+/* ========== ИСПРАВЛЕНИЕ ВЫХОДА ЗА КРАЯ ========== */
+
+/* 
+    ВАЖНО: .dresscode-photo-full использует width: 100vw,
+    что может вызвать горизонтальный скролл.
+    Добавьте это в глобальные стили, если ещё не сделали:
+  */
+
+@media screen and (max-width: 480px) {
+    .dresscode-photo-full {
+        width: calc(100% + 40px);
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .dresscode-photo-full {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+
 /* === 7. Анкета === */
 #survey {
     padding: 0;
@@ -1081,13 +2082,13 @@ strong {
 
 /* Подзаголовок */
 .survey-subtitle {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 15px;
     color: black;
     letter-spacing: 2px;
     line-height: 1.1;
     margin-bottom: 14px;
-    font-weight: 600;
 }
 
 /* Дата */
@@ -1113,9 +2114,9 @@ strong {
 
 .form-field label {
     display: block;
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 14px;
-    font-weight: 400;
     letter-spacing: 2px;
     color: black;
     margin-bottom: 8px;
@@ -1131,7 +2132,8 @@ strong {
     padding: 12px 36px 12px 14px;
     border: 1px solid var(--color-border);
     border-radius: 0;
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 15px;
     color: black;
     background: rgba(255, 250, 245, 0.8);
@@ -1265,6 +2267,349 @@ strong {
     transform: scale(1.2);
 }
 
+/* АДАПТАЦИЯ ПЯТОЙ ЧАСТИ ПОД ВСЕ ЭКРАНЫ */
+/* ==========================================
+   АДАПТАЦИЯ: Анкета
+   ========================================== */
+
+/* Стандартные мобильные (до 480px) */
+@media screen and (max-width: 480px) {
+
+    .survey-overlay {
+        padding: 30px 15px;
+        min-height: 100vh;
+        min-height: 100dvh;
+        align-items: flex-start;
+        /* не центрируем вертикально, чтобы всё было видно */
+        padding-top: 40px;
+    }
+
+    .survey-inner {
+        padding: 30px 20px;
+        max-width: 100%;
+        border-radius: 3px;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+    }
+
+    /* Заголовок */
+    .survey-title {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+
+    /* Подзаголовок */
+    .survey-subtitle {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        margin-bottom: 10px;
+        padding: 0 5px;
+        line-height: 1.2;
+    }
+
+    /* Дата */
+    .survey-date {
+        font-size: 26px;
+        padding-bottom: 4px;
+        margin-bottom: 25px;
+    }
+
+    /* Форма */
+    .form-field {
+        margin-bottom: 16px;
+    }
+
+    /* Поля ввода */
+    .input-wrapper input,
+    .input-wrapper textarea {
+        padding: 10px 30px 10px 12px;
+        font-size: 14px;
+    }
+
+    .input-wrapper textarea {
+        min-height: 45px;
+    }
+
+    .input-icon {
+        right: 10px;
+        font-size: 11px;
+    }
+
+    /* Радио */
+    .radio-group {
+        gap: 6px;
+    }
+
+    .radio-option {
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .radio-option input {
+        width: 15px;
+        height: 15px;
+    }
+
+    /* Чекбоксы */
+    .checkbox-group {
+        gap: 5px;
+    }
+
+    .checkbox-option {
+        padding: 7px 10px;
+        gap: 6px;
+    }
+
+    .checkbox-option input {
+        width: 15px;
+        height: 15px;
+    }
+
+    /* Кнопка */
+    .survey-submit {
+        padding: 12px;
+        font-size: 14px;
+        letter-spacing: 4px;
+        margin-top: 15px;
+    }
+}
+
+/* Маленькие экраны (до 380px) */
+@media screen and (max-width: 380px) {
+
+    .survey-overlay {
+        padding: 20px 10px;
+        padding-top: 30px;
+    }
+
+    .survey-inner {
+        padding: 25px 15px;
+        border-radius: 2px;
+    }
+
+    /* Заголовок */
+    .survey-title {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    /* Подзаголовок */
+    .survey-subtitle {
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    /* Дата */
+    .survey-date {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    /* Форма */
+    .form-field {
+        margin-bottom: 14px;
+    }
+
+    /* Поля ввода */
+    .input-wrapper input,
+    .input-wrapper textarea {
+        padding: 9px 28px 9px 10px;
+        font-size: 13px;
+    }
+
+    .input-wrapper textarea {
+        min-height: 40px;
+    }
+
+    .input-icon {
+        right: 8px;
+        font-size: 10px;
+    }
+
+    /* Радио */
+    .radio-option {
+        padding: 7px 10px;
+        gap: 6px;
+    }
+
+    .radio-option input {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Чекбоксы */
+    .checkbox-option {
+        padding: 6px 8px;
+        gap: 5px;
+    }
+
+    .checkbox-option input {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Кнопка */
+    .survey-submit {
+        padding: 11px;
+        font-size: 13px;
+        letter-spacing: 3px;
+        margin-top: 12px;
+    }
+}
+
+/* Очень маленькие экраны (до 320px) */
+@media screen and (max-width: 320px) {
+
+    .survey-overlay {
+        padding: 15px 8px;
+        padding-top: 20px;
+    }
+
+    .survey-inner {
+        padding: 20px 12px;
+    }
+
+    /* Заголовок */
+    .survey-title {
+        font-size: 26px;
+        margin-bottom: 8px;
+    }
+
+    /* Подзаголовок */
+    .survey-subtitle {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+    }
+
+    /* Дата */
+    .survey-date {
+        font-size: 20px;
+        margin-bottom: 18px;
+    }
+
+    /* Форма */
+    .form-field {
+        margin-bottom: 12px;
+    }
+
+    /* Поля ввода */
+    .input-wrapper input,
+    .input-wrapper textarea {
+        padding: 8px 24px 8px 8px;
+        font-size: 12px;
+    }
+
+    .input-wrapper textarea {
+        min-height: 36px;
+    }
+
+    .input-icon {
+        right: 6px;
+        font-size: 9px;
+    }
+
+    /* Радио */
+    .radio-option {
+        padding: 6px 8px;
+        gap: 5px;
+    }
+
+    .radio-option input {
+        width: 13px;
+        height: 13px;
+    }
+
+    /* Чекбоксы */
+    .checkbox-option {
+        padding: 5px 6px;
+        gap: 4px;
+    }
+
+    .checkbox-option input {
+        width: 13px;
+        height: 13px;
+    }
+
+    /* Кнопка */
+    .survey-submit {
+        padding: 10px;
+        font-size: 12px;
+        letter-spacing: 2px;
+        margin-top: 10px;
+    }
+}
+
+/* Альбомная ориентация */
+@media screen and (max-width: 480px) and (orientation: landscape) {
+
+    .survey-overlay {
+        padding: 20px;
+        min-height: auto;
+        align-items: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .survey-inner {
+        max-width: 460px;
+        padding: 25px 20px;
+    }
+
+    .survey-title {
+        font-size: 34px;
+    }
+
+    .checkbox-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+}
+
+/* ========== ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ ========== */
+
+/* 
+    Убираем backdrop-filter на старых устройствах,
+    где он может тормозить
+  */
+@media screen and (max-width: 380px) {
+    .survey-inner {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(231, 224, 203, 0.92);
+        /* чуть плотнее фон */
+    }
+}
+
+/* Увеличиваем область касания для радио/чекбоксов */
+@media screen and (max-width: 480px) {
+
+    .radio-option,
+    .checkbox-option {
+        min-height: 44px;
+        /* минимум для удобного тапа */
+        display: flex;
+        align-items: center;
+    }
+
+    /* Скрываем стандартный инпут, показываем кастомный (если нужен) */
+    .radio-option input,
+    .checkbox-option input {
+        flex-shrink: 0;
+    }
+}
+
+/* Фикс для iOS — убираем увеличение при фокусе на input */
+@media screen and (max-width: 480px) {
+
+    .input-wrapper input,
+    .input-wrapper textarea {
+        font-size: 16px;
+        /* минимум 16px чтобы iOS не зумил */
+    }
+}
+
 /* === 7. Детали === */
 #details {
     background: var(--color-cream);
@@ -1334,7 +2679,8 @@ strong {
 
 /* Основной текст */
 .details-main {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 18px;
     color: var(--color-text);
     letter-spacing: 2px;
@@ -1429,9 +2775,9 @@ strong {
 }
 
 .contact-name {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
-    font-size: 14px;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
+    font-size: 14px;
     color: var(--color-deep-burgundy);
     margin-bottom: 0px;
     letter-spacing: 1px;
@@ -1439,12 +2785,308 @@ strong {
 }
 
 .contact-phone {
-    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
     font-size: 14px;
     color: var(--color-deep-burgundy);
     text-decoration: none;
     letter-spacing: 3px;
     white-space: nowrap;
+}
+
+/* АДАПТАЦИЯ ШЕСТОЙ ЧАСТИ ПОД ВСЕ ЭКРАНЫ */
+/* ==========================================
+   АДАПТАЦИЯ: Детали
+   ========================================== */
+
+/* Стандартные мобильные (до 480px) */
+@media screen and (max-width: 480px) {
+
+    #details {
+        padding: 40px 20px 50px;
+    }
+
+    /* Декоративные цветы */
+    .details-flower-left {
+        top: -10px;
+        left: -40px;
+        width: 130px;
+        height: 130px;
+        opacity: 0.6;
+    }
+
+    .details-flower-right {
+        bottom: 70px;
+        right: -25px;
+        width: 100px;
+        height: 100px;
+        opacity: 0.6;
+    }
+
+    /* Контент */
+    .details-content {
+        gap: 16px;
+    }
+
+    /* Заголовок */
+    .details-title {
+        font-size: 42px;
+    }
+
+    /* Основной текст */
+    .details-main {
+        font-size: 16px;
+        letter-spacing: 1.5px;
+        max-width: 100%;
+        padding: 0 10px;
+        line-height: 1.2;
+    }
+
+    /* Сердечко */
+    .details-heart {
+        font-size: 18px;
+    }
+
+    /* Текст с подчёркиванием */
+    .details-gift-wrapper {
+        gap: 10px;
+    }
+
+    .details-line {
+        width: 60px;
+    }
+
+    .details-gift {
+        font-size: 14px;
+        letter-spacing: 1.5px;
+        max-width: 100%;
+        padding: 0 15px;
+        line-height: 1.3;
+    }
+
+    /* Вопрос */
+    .details-question {
+        font-size: 26px;
+    }
+
+    /* Карточка контакта */
+    .contact-card {
+        width: 100%;
+        max-width: 380px;
+    }
+
+    .contact-card-bg {
+        width: 100%;
+        max-width: 380px;
+    }
+
+    .contact-phone {
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+}
+
+/* Маленькие экраны (до 380px) */
+@media screen and (max-width: 380px) {
+
+    #details {
+        padding: 30px 15px 40px;
+    }
+
+    /* Декоративные цветы */
+    .details-flower-left {
+        top: -15px;
+        left: -35px;
+        width: 100px;
+        height: 100px;
+        opacity: 0.4;
+    }
+
+    .details-flower-right {
+        bottom: 50px;
+        right: -20px;
+        width: 80px;
+        height: 80px;
+        opacity: 0.4;
+    }
+
+    /* Контент */
+    .details-content {
+        gap: 14px;
+    }
+
+    /* Заголовок */
+    .details-title {
+        font-size: 44px;
+    }
+
+    /* Основной текст */
+    .details-main {
+        font-size: 16px;
+        letter-spacing: 1px;
+        padding: 0 5px;
+    }
+
+    /* Сердечко */
+    .details-heart {
+        font-size: 16px;
+    }
+
+    /* Текст с подчёркиванием */
+    .details-gift-wrapper {
+        gap: 8px;
+    }
+
+    .details-line {
+        width: 50px;
+    }
+
+    .details-gift {
+        font-size: 14px;
+        letter-spacing: 1px;
+        padding: 0 10px;
+    }
+
+    /* Вопрос */
+    .details-question {
+        font-size: 22px;
+    }
+
+    /* Карточка контакта */
+    .contact-card {
+        max-width: 300px;
+    }
+
+    .contact-card-bg {
+        max-width: 300px;
+    }
+}
+
+/* Очень маленькие экраны (до 320px) */
+@media screen and (max-width: 320px) {
+
+    #details {
+        padding: 25px 12px 30px;
+    }
+
+    /* Декоративные цветы — почти скрываем */
+    .details-flower-left {
+        width: 70px;
+        height: 70px;
+        opacity: 0.3;
+        left: -25px;
+    }
+
+    .details-flower-right {
+        width: 60px;
+        height: 60px;
+        opacity: 0.3;
+        right: -15px;
+        bottom: 40px;
+    }
+
+    /* Контент */
+    .details-content {
+        gap: 12px;
+    }
+
+    /* Заголовок */
+    .details-title {
+        font-size: 26px;
+    }
+
+    /* Основной текст */
+    .details-main {
+        font-size: 13px;
+        letter-spacing: 0.5px;
+    }
+
+    /* Сердечко */
+    .details-heart {
+        font-size: 15px;
+    }
+
+    /* Текст с подчёркиванием */
+    .details-gift-wrapper {
+        gap: 6px;
+    }
+
+    .details-line {
+        width: 40px;
+    }
+
+    .details-gift {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        padding: 0 5px;
+    }
+
+    /* Вопрос */
+    .details-question {
+        font-size: 20px;
+    }
+
+    /* Карточка контакта */
+    .contact-card {
+        max-width: 260px;
+    }
+
+    .contact-card-bg {
+        max-width: 260px;
+    }
+}
+
+/* Альбомная ориентация */
+@media screen and (max-width: 480px) and (orientation: landscape) {
+
+    #details {
+        padding: 25px 20px 30px;
+    }
+
+    .details-content {
+        gap: 12px;
+    }
+
+    .details-flower-right {
+        bottom: 30px;
+    }
+
+    .details-title {
+        font-size: 32px;
+    }
+
+    .details-question {
+        font-size: 24px;
+    }
+}
+
+/* ========== ДОПОЛНИТЕЛЬНЫЕ ИСПРАВЛЕНИЯ ========== */
+
+/* 
+    ВАЖНО: .contact-name и .contact-phone используют white-space: nowrap.
+    На маленьких экранах это может вызвать выход за пределы карточки.
+    Исправляем:
+  */
+
+/* Анимация сердечка — снижаем нагрузку на слабых устройствах */
+@media screen and (max-width: 380px) {
+    @keyframes heartBeat {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+            /* меньше амплитуда */
+        }
+    }
+
+    .details-heart {
+        animation-duration: 2s;
+        /* медленнее */
+    }
 }
 
 /* === 8. Таймер и фотография === */
@@ -1549,39 +3191,6 @@ strong {
     text-shadow: 0 2px 15px rgba(49, 1, 15, 0.5);
 }
 
-/* === Адаптивность === */
-@media (max-width: 500px) {
-    .container {
-        max-width: 100%;
-    }
-
-    .block {
-        padding: 40px 20px;
-    }
-
-    #envelope {
-        padding: 0;
-    }
-
-    .envelope-text h1 {
-        font-size: 34px;
-    }
-
-    .envelope-button {
-        padding: 14px 35px;
-        font-size: 16px;
-        letter-spacing: 6px;
-    }
-
-    #photo-block img {
-        max-width: 260px;
-    }
-
-    h2 {
-        font-size: 24px;
-    }
-}
-
 /* === Прелоадер === */
 .preloader {
     position: fixed;
@@ -1669,5 +3278,459 @@ strong {
 
     50% {
         opacity: 1;
+    }
+}
+
+/* АДАПТАЦИЯ СЕДЬМОЙ ЧАСТИ ПОД ВСЕ ЭКРАНЫ */
+/* ==========================================
+   АДАПТАЦИЯ: Таймер и фотография
+   ========================================== */
+
+/* Стандартные мобильные (до 480px) */
+@media screen and (max-width: 480px) {
+
+    #timer-section {
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .timer-vignette {
+        background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+    }
+
+    .timer-overlay {
+        bottom: 100px;
+        padding: 0 20px;
+    }
+
+    /* Текст "До скорой встречи через:" */
+    .timer-meet-text {
+        font-size: 46px;
+        margin-bottom: 25px;
+        text-shadow: 0 2px 12px rgba(49, 1, 15, 0.6);
+        line-height: 1.1;
+    }
+
+    /* Таймер */
+    .timer-countdown {
+        gap: 10px;
+        margin-bottom: 28px;
+    }
+
+    .timer-unit {
+        min-width: 45px;
+    }
+
+    .timer-digit {
+        font-size: 54px;
+        letter-spacing: 2px;
+    }
+
+    .timer-label {
+        font-size: 14px;
+        letter-spacing: 2px;
+        margin-top: 4px;
+    }
+
+    /* Текст "С любовью..." */
+    .timer-love {
+        font-size: 40px;
+        line-height: 1.2;
+        text-shadow: 0 2px 12px rgba(49, 1, 15, 0.6);
+    }
+}
+
+/* Маленькие экраны (до 380px) */
+@media screen and (max-width: 380px) {
+
+    .timer-overlay {
+        bottom: 70px;
+        padding: 0 15px;
+    }
+
+    /* Текст */
+    .timer-meet-text {
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    /* Таймер */
+    .timer-countdown {
+        gap: 8px;
+        margin-bottom: 22px;
+    }
+
+    .timer-unit {
+        min-width: 40px;
+    }
+
+    .timer-digit {
+        font-size: 38px;
+        letter-spacing: 1.5px;
+    }
+
+    .timer-label {
+        font-size: 9px;
+        letter-spacing: 1.5px;
+        margin-top: 3px;
+    }
+
+    /* Текст снизу */
+    .timer-love {
+        font-size: 36px;
+    }
+}
+
+/* Очень маленькие экраны (до 320px) */
+@media screen and (max-width: 320px) {
+
+    .timer-overlay {
+        bottom: 50px;
+        padding: 0 12px;
+    }
+
+    /* Текст */
+    .timer-meet-text {
+        font-size: 36px;
+        margin-bottom: 18px;
+    }
+
+    /* Таймер — разрешаем перенос на 2 строки по 2 блока */
+    .timer-countdown {
+        gap: 6px 20px;
+        margin-bottom: 18px;
+        max-width: 220px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .timer-unit {
+        min-width: 35px;
+    }
+
+    .timer-digit {
+        font-size: 24px;
+        letter-spacing: 1px;
+    }
+
+    .timer-label {
+        font-size: 8px;
+        letter-spacing: 1px;
+        margin-top: 2px;
+    }
+
+    /* Текст снизу */
+    .timer-love {
+        font-size: 22px;
+    }
+}
+
+/* Альбомная ориентация */
+@media screen and (max-width: 480px) and (orientation: landscape) {
+
+    #timer-section {
+        min-height: auto;
+        padding: 60px 0;
+    }
+
+    .timer-overlay {
+        bottom: 40px;
+    }
+
+    .timer-meet-text {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .timer-countdown {
+        gap: 15px;
+        margin-bottom: 18px;
+    }
+
+    .timer-digit {
+        font-size: 30px;
+    }
+
+    .timer-love {
+        font-size: 26px;
+    }
+}
+
+/* ==========================================
+     АДАПТАЦИЯ: Прелоадер
+     ========================================== */
+
+@media screen and (max-width: 480px) {
+
+    .preloader-rings {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 25px;
+    }
+
+    .ring {
+        width: 40px;
+        height: 40px;
+        border-width: 1.5px;
+    }
+
+    .preloader-text {
+        font-size: 14px;
+        letter-spacing: 4px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+
+    .preloader-rings {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 20px;
+    }
+
+    .ring {
+        width: 32px;
+        height: 32px;
+        border-width: 1.5px;
+    }
+
+    .preloader-text {
+        font-size: 12px;
+        letter-spacing: 3px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+
+    .preloader-rings {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 15px;
+    }
+
+    .ring {
+        width: 28px;
+        height: 28px;
+        border-width: 1px;
+    }
+
+    .preloader-text {
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+}
+
+/* ==========================================
+     ОБЩИЕ АДАПТИВНЫЕ СТИЛИ (замена существующих)
+     ========================================== */
+
+/*
+    ВАЖНО: замените существующий блок @media (max-width: 500px)
+    на этот, более полный:
+  */
+
+@media screen and (max-width: 480px) {
+
+    /* Контейнер */
+    .container {
+        max-width: 100%;
+        margin: 0;
+        box-shadow: none;
+    }
+
+    /* Блоки */
+    .block {
+        padding: 40px 20px;
+    }
+
+    .block::after {
+        width: 40px;
+    }
+
+    /* Типографика */
+    h1 {
+        font-size: 32px;
+        letter-spacing: 2px;
+    }
+
+    h2 {
+        font-size: 24px;
+        letter-spacing: 3px;
+    }
+
+    h3 {
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    p {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    /* Конверт */
+    #envelope {
+        padding: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    .envelope-text h1 {
+        font-size: 28px;
+    }
+
+    .envelope-button {
+        padding: 12px 30px;
+        font-size: 14px;
+        letter-spacing: 4px;
+    }
+
+    /* Фото-блок */
+    #photo-block img {
+        max-width: 240px;
+    }
+
+    /* Глобальные исправления */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Предотвращаем горизонтальный скролл */
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
+}
+
+@media screen and (max-width: 380px) {
+
+    .block {
+        padding: 30px 15px;
+    }
+
+    .block::after {
+        width: 30px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 22px;
+        letter-spacing: 2px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    #photo-block img {
+        max-width: 200px;
+    }
+
+    .envelope-text h1 {
+        font-size: 24px;
+    }
+
+    .envelope-button {
+        padding: 10px 25px;
+        font-size: 13px;
+        letter-spacing: 3px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+
+    .block {
+        padding: 25px 12px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 15px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+}
+
+/* ==========================================
+     ДОПОЛНИТЕЛЬНЫЕ ГЛОБАЛЬНЫЕ ИСПРАВЛЕНИЯ
+     ========================================== */
+
+/* Поддержка устройств с "челкой" (notch) */
+@supports (padding-top: env(safe-area-inset-top)) {
+    @media screen and (max-width: 480px) {
+
+        #envelope,
+        #survey,
+        #timer-section {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+            min-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        }
+
+        .envelope-wrapper {
+            height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+            height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        }
+    }
+}
+
+/* Убираем ховер-эффекты на тач-устройствах */
+@media (hover: none) and (pointer: coarse) {
+    .button-map-rounded:hover {
+        background: var(--color-deep-burgundy);
+        transform: none;
+    }
+
+    .survey-submit:hover {
+        background: var(--color-deep-burgundy);
+    }
+
+    .radio-option:hover,
+    .checkbox-option:hover {
+        background: rgba(255, 250, 245, 0.6);
+        border-color: transparent;
+    }
+
+    .submit-icon {
+        transform: none !important;
+    }
+}
+
+/* Фикс для iOS — предотвращает зум при фокусе */
+@media screen and (max-width: 480px) {
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Плавный скролл для якорных ссылок */
+@media screen and (max-width: 480px) {
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
     }
 }
